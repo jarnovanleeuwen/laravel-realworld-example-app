@@ -6,8 +6,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1
-      - image: circleci/mysql:5.7
+      - image: circleci/php:7.1.23-cli-jessie
+      - image: circleci/mysql:5.7.23
 
     steps:
       - checkout
@@ -23,9 +23,19 @@ jobs:
           name: Configure environment
           command: cp .env.circleci .env
 
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+
       - run:
           name: Run Composer
           command: composer install --prefer-dist --no-interaction
+
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
 
       - run:
           name: Migrate database
