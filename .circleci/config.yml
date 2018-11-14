@@ -32,6 +32,9 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
+
+      # prepare database
+      - run: ./artisan migrate --env=circleci
         
       # run tests!
-      - run: phpunit
+      - run: ./vendor/bin/phpunit
