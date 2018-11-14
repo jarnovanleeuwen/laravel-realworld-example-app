@@ -15,6 +15,11 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install MySQL CLI
+          command: |
+            sudo apt-get install mysql-client
+
       # Download and cache dependencies
       - restore_cache:
           keys:
