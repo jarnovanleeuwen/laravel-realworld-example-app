@@ -13,7 +13,7 @@ jobs:
       - checkout
 
       - run:
-          name: Install MySQL
+          name: Install MySQL :-)
           command: |
             sudo apt-get install mysql-client
             sudo docker-php-ext-install pdo_mysql
