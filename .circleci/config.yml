@@ -16,8 +16,9 @@ jobs:
       - checkout
 
       - run:
-          name: Install MySQL CLI
+          name: Install MySQL
           command: |
+            sudo docker-php-ext-install pdo_mysql
             sudo apt-get install mysql-client
 
       # Download and cache dependencies
