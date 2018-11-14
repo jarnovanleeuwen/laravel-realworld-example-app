@@ -20,12 +20,16 @@ jobs:
             sudo mysql -h 127.0.0.1 -u root -e "create database circleci_test"
 
       - run:
+          name: Configure environment
+          command: cp .env.circleci .env
+
+      - run:
           name: Run Composer
           command: composer install --prefer-dist --no-interaction
 
       - run:
           name: Migrate database
-          command: ./artisan migrate --env=circleci
+          command: ./artisan migrate
 
       - run:
           name: Run PHPUnit
